@@ -1,6 +1,7 @@
 package com.mobilki.dokultury.views.adapters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,14 +48,14 @@ public class CategoriesAdapter extends BaseAdapter {
         View rowView = convertView;
 
         if (rowView == null){
-            rowView = mInflater.inflate(R.layout.item_categories);
+            rowView = mInflater.inflate(R.layout.item_categories, parent);
             ViewHolder holder = new ViewHolder(rowView);
             rowView.setTag(holder);
         }
 
         ViewHolder holder = (ViewHolder) rowView.getTag();
         Category category = mCategories.get(position);
-        holder.icon.setImageDrawable(mContext.getDrawable(category.getIcon()));
+        holder.icon.setImageDrawable(ContextCompat.getDrawable(mContext, category.getIcon()));
         holder.text.setText(category.getName());
 
         return rowView;
