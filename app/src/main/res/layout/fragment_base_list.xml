@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="90dp"
+        android:textAppearance="@style/DoKultury.TitleBarText"
+        tools:text="W jakim mieście szukasz atrakcji?"
+        android:id="@+id/title_bar"
+        android:textAlignment="gravity"
+        android:gravity="center" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/search_bar"
+        android:layout_gravity="center_horizontal"
+        android:inputType="text"
+        android:imeOptions="actionSearch"
+        android:hint="@string/fragment_cities_search_hint"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:maxLength="50"
+        android:textAppearance="@style/DoKultury.ListItemText"
+        android:textColorHint="#909090"
+        android:textStyle="italic"
+        android:textColor="@color/DoKultury.textLight" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal"
+        android:clickable="false"
+        tools:listitem="@layout/item_simple" />
+</LinearLayout>
