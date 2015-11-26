@@ -42,10 +42,10 @@ public class CitiesFragment extends BaseFragment {
         showCategories(query);
     }
 
-    private void showCategories(String miasto){
+    private void showCategories(String miasto) {
         Toast.makeText(this.getContext(), miasto, Toast.LENGTH_LONG).show();
-        // tworzysz nowy fragment i wysyłasz go do activity
-        // CategoriesFragment categories = CategoriesFragment.newInstance(miasto);
-        // loadFragment(categories);
+//         tworzysz nowy fragment i wysyłasz go do activity
+        CategoriesFragment categories = CategoriesFragment.newInstance(miasto);
+        loadFragment(categories);
     }
 }

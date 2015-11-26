@@ -6,6 +6,8 @@
     <string name="fragment_cities_title">W jakim mieście szukasz atrakcji?</string>
     <string name="fragment_cities_search_hint">Miasto</string>
 
+    <string name="fragment_categories_title">Czego szukasz w mieście: </string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
