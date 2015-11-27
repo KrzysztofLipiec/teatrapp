@@ -9,12 +9,18 @@ import android.widget.FrameLayout;
 import com.mobilki.dokultury.R;
 import com.mobilki.dokultury.fragments.BaseFragment;
 import com.mobilki.dokultury.fragments.CitiesFragment;
+import com.mobilki.dokultury.models.Category;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import icepick.Icepick;
 import icepick.State;
 
 public class MainActivity extends AppCompatActivity implements BaseFragment.OnFragmentChangeListener {
+
+    public List<Category> categories;
 
     @State String city;
     @State Integer category;
@@ -29,6 +35,14 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        categories = new ArrayList<>();
+        categories.add(new Category(R.drawable.hotel, "Hotel"));
+        categories.add(new Category(R.drawable.kino, "Kino"));
+        categories.add(new Category(R.drawable.muzeum, "Muzeum"));
+        categories.add(new Category(R.drawable.parking, "Parking"));
+        categories.add(new Category(R.drawable.zoo, "ZOO"));
+
         CitiesFragment fragment = CitiesFragment.newInstance();
         loadFragment(fragment);
     }

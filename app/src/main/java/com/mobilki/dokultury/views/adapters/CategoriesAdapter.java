@@ -45,20 +45,21 @@ public class CategoriesAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View rowView = convertView;
+        ViewHolder holder;
 
-        if (rowView == null){
-            rowView = mInflater.inflate(R.layout.item_categories, parent);
-            ViewHolder holder = new ViewHolder(rowView);
-            rowView.setTag(holder);
+        if (convertView == null){
+            convertView = mInflater.inflate(R.layout.item_categories, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
 
-        ViewHolder holder = (ViewHolder) rowView.getTag();
         Category category = mCategories.get(position);
         holder.icon.setImageDrawable(ContextCompat.getDrawable(mContext, category.getIcon()));
         holder.text.setText(category.getName());
 
-        return rowView;
+        return convertView;
     }
 
     static class ViewHolder {

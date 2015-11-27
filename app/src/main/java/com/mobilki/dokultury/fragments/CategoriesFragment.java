@@ -3,15 +3,14 @@ package com.mobilki.dokultury.fragments;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mobilki.dokultury.R;
+import com.mobilki.dokultury.activities.MainActivity;
+import com.mobilki.dokultury.views.adapters.CategoriesAdapter;
 
 public class CategoriesFragment extends BaseFragment {
     public static String CITY_KEY = "city";
-    String[] categories =  new String[]{"Teatr", "Kino", "Parking", "ZO O"};
     String city;
     public CategoriesFragment () {}
 
@@ -34,8 +33,8 @@ public class CategoriesFragment extends BaseFragment {
     @Override
     public void onViewCreated(View v, ListView listView) {
         super.onViewCreated(v, listView);
-        setTitle(getResources().getString(R.string.fragment_categories_title) + city);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), R.layout.item_simple, R.id.text, categories);
+        setTitle(getResources().getString(R.string.fragment_categories_title) + " " + city);
+        CategoriesAdapter adapter = new CategoriesAdapter(this.getContext(), ((MainActivity) getActivity()).categories);
         listView.setAdapter(adapter);
     }
 
