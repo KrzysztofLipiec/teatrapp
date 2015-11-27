@@ -11,14 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mobilki.dokultury.R;
+import com.mobilki.dokultury.activities.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,6 +34,9 @@ public abstract class BaseFragment extends Fragment {
     @Bind(R.id.title_holder) FrameLayout mTitleHolder;
     @Bind(R.id.icon) ImageView mIcon;
     @Bind(R.id.text) TextView mText;
+    @Bind(R.id.navigation_buttons) RelativeLayout mNavigationButtons;
+    @Bind(R.id.add_destination) Button mAddDestinationButton;
+    @Bind(R.id.start_navigate) Button mStartNavigateButton;
 
     OnFragmentChangeListener mListener;
 
@@ -65,6 +71,20 @@ public abstract class BaseFragment extends Fragment {
             }
         });
 
+        mAddDestinationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAddDestinationClick();
+            }
+        });
+
+        mStartNavigateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onStartNavigateClick();
+            }
+        });
+
         this.onViewCreated(view, mListView);
         return view;
     }
@@ -87,12 +107,26 @@ public abstract class BaseFragment extends Fragment {
         mSerachBar.setVisibility(visible);
     }
 
+    public void showNavigationButtons(boolean check){
+        mNavigationButtons.setVisibility(check ? View.VISIBLE : View.GONE);
+    }
+
+    public void showAddDestinationButton(boolean check){
+        mAddDestinationButton.setVisibility(check ? View.VISIBLE : View.GONE);
+    }
+
     public void onViewCreated(View v, ListView listView){}
     public void onSearch(String query){}
     public void onListItemClick(AdapterView<?> parent, View view, int position, long id){}
+    public void onAddDestinationClick(){}
+    public void onStartNavigateClick(){}
 
     public void loadFragment(BaseFragment fragment){
         mListener.loadFragment(fragment);
+    }
+
+    public MainActivity getActivityHandle(){
+        return (MainActivity) getActivity();
     }
 
     @Override

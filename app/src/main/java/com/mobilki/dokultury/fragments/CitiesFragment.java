@@ -45,6 +45,7 @@ public class CitiesFragment extends BaseFragment {
     private void showCategories(String miasto) {
         Toast.makeText(this.getContext(), miasto, Toast.LENGTH_LONG).show();
 //         tworzysz nowy fragment i wysyłasz go do activity
+        getActivityHandle().setCity(miasto);
         CategoriesFragment categories = CategoriesFragment.newInstance(miasto);
         loadFragment(categories);
     }

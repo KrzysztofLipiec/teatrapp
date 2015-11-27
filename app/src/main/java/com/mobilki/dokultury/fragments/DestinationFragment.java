@@ -1,39 +1,36 @@
 package com.mobilki.dokultury.fragments;
 
+
 import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.mobilki.dokultury.activities.MainActivity;
 import com.mobilki.dokultury.models.Category;
 import com.mobilki.dokultury.views.adapters.PlacesAdapter;
 
-import java.io.IOException;
 import java.util.List;
 
-public class ResultsFragment extends BaseFragment {
+public class DestinationFragment extends BaseFragment {
     public static String CATEGORY_NAME = "category";
     public static String CATEGORY_ICON = "icon";
     public static String CITY_KEY = "city";
 
-    List<Address> addressList;
-    Category category;
-    String mCity;
     String mName;
     int mIcon;
 
-    public ResultsFragment () {}
+    public List<Address> destinations;
 
-    public static ResultsFragment newInstance(Category category, String city) {
-        ResultsFragment fragment = new ResultsFragment();
+    public DestinationFragment () {}
+
+    public static DestinationFragment newInstance(Category category) {
+        DestinationFragment fragment = new DestinationFragment();
         Bundle args = new Bundle();
-        args.putString(CITY_KEY, city);
         args.putString(CATEGORY_NAME, category.getName());
         args.putInt(CATEGORY_ICON, category.getIcon());
         fragment.setArguments(args);
-        fragment.category = category;
         return fragment;
     }
 
@@ -42,43 +39,45 @@ public class ResultsFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mName = getArguments().getString(CATEGORY_NAME);
-            mCity = getArguments().getString(CITY_KEY);
             mIcon = getArguments().getInt(CATEGORY_ICON);
         }
+        destinations = ((MainActivity) getActivity()).getDestinations();
     }
 
     @Override
-    public void onViewCreated(View v, ListView listView) {
+    public void onViewCreated(View v, final ListView listView) {
         super.onViewCreated(v, listView);
         showCategoryOnTitle(mIcon, mName);
         showSearchBar(false);
-        PlacesAdapter adapter = new PlacesAdapter(this.getContext(), loadResults());
+        showNavigationButtons(true);
+        showAddDestinationButton(destinations.size() < 3);
+
+        final PlacesAdapter adapter = new PlacesAdapter(this.getContext(), destinations);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                getActivityHandle().removeDestination(position);
+                adapter.notifyDataSetChanged();
+                return true;
+            }
+        });
         listView.setAdapter(adapter);
     }
 
     @Override
     public void onListItemClick(AdapterView<?> parent, View view, int position, long id) {
         super.onListItemClick(parent, view, position, id);
-        getActivityHandle().addDestination(addressList.get(position), false);
-        showDestinations();
     }
 
-    public List<Address> loadResults(){
-        Geocoder geocoder = new Geocoder(this.getContext());
-
-        try {
-            addressList = geocoder.getFromLocationName(String.format("%s, %s", mCity, mName), 15);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
-
-        return addressList;
+    @Override
+    public void onStartNavigateClick() {
+        super.onStartNavigateClick();
     }
 
-    private void showDestinations(){
-        // tworzysz nowy fragment i wysyłasz go do activity
-         DestinationFragment destinationsFragment = DestinationFragment.newInstance(category);
-         loadFragment(destinationsFragment);
+    @Override
+    public void onAddDestinationClick() {
+        loadFragment(CategoriesFragment.newInstance(getActivityHandle().getCity()));
+        super.onAddDestinationClick();
     }
 }

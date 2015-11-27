@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     @State Integer category;
     @State int target;
 
-    public List<Address> destinations;
+    public List<Address> destinations = new ArrayList<>();
 
     @Bind(R.id.fragment) FrameLayout fragmentContainer;
 
@@ -94,5 +94,33 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         }
     }
 
+    public List<Address> getDestinations(){
+        if (destinations == null){
+            destinations = new ArrayList<>();
+        }
 
+        return destinations;
+    }
+
+    public Address removeDestination(int position){
+        return destinations.remove(position);
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public MainActivity setCity(String city) {
+        this.city = city;
+        return this;
+    }
+
+    public Category getCategory() {
+        return categories.get(category);
+    }
+
+    public MainActivity setCategory(Category category) {
+        this.category = categories.indexOf(category);
+        return this;
+    }
 }

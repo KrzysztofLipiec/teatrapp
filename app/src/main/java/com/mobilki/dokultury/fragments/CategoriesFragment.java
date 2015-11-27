@@ -49,7 +49,8 @@ public class CategoriesFragment extends BaseFragment {
 
     private void showPlaces(Category category){
         // tworzysz nowy fragment i wysyłasz go do activity
-         ResultsFragment results = ResultsFragment.newInstance(category, city);
-         loadFragment(results);
+        getActivityHandle().setCategory(category);
+        ResultsFragment results = ResultsFragment.newInstance(category, city);
+        loadFragment(results);
     }
 }
