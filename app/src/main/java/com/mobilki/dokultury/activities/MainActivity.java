@@ -1,5 +1,6 @@
 package com.mobilki.dokultury.activities;
 
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
 
     @State String city;
     @State Integer category;
-    @State String target;
-    @State String parking;
-    @State String hotel;
+    @State int target;
+
+    public List<Address> destinations;
 
     @Bind(R.id.fragment) FrameLayout fragmentContainer;
 
@@ -37,11 +38,12 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         setContentView(R.layout.activity_main);
 
         categories = new ArrayList<>();
-        categories.add(new Category(R.drawable.hotel, "Hotel"));
-        categories.add(new Category(R.drawable.kino, "Kino"));
+        categories.add(new Category(R.drawable.teatr, "Teatr"));
         categories.add(new Category(R.drawable.muzeum, "Muzeum"));
-        categories.add(new Category(R.drawable.parking, "Parking"));
         categories.add(new Category(R.drawable.zoo, "ZOO"));
+        categories.add(new Category(R.drawable.kino, "Kino"));
+        categories.add(new Category(R.drawable.hotel, "Hotel"));
+        categories.add(new Category(R.drawable.parking, "Parking"));
 
         CitiesFragment fragment = CitiesFragment.newInstance();
         loadFragment(fragment);
@@ -60,4 +62,37 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
         super.onSaveInstanceState(outState);
         Icepick.saveInstanceState(this, outState);
     }
+
+    public boolean addDestination(Address address, Boolean before){
+        if (destinations.size() >= 2)
+            return false;
+
+        if (before && destinations.size() == 1){
+            Address tmp = destinations.set(0, address);
+            destinations.add(tmp);
+        } else {
+            destinations.add(address);
+        }
+
+        return true;
+    }
+
+    public Address setCurrentTarget(int id){
+        if (id >= destinations.size()){
+            return null;
+        }
+
+        target = id;
+        return destinations.get(id);
+    }
+
+    public Address getCurrentTarget(){
+        if (destinations.size() > 0) {
+            return destinations.get(target);
+        } else {
+            return null;
+        }
+    }
+
+
 }
