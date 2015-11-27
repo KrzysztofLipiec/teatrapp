@@ -1,7 +1,9 @@
 package com.mobilki.dokultury.fragments;
 
 
+import android.content.Intent;
 import android.location.Address;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,6 +14,7 @@ import com.mobilki.dokultury.models.Category;
 import com.mobilki.dokultury.views.adapters.PlacesAdapter;
 
 import java.util.List;
+import java.util.Locale;
 
 public class DestinationFragment extends BaseFragment {
     public static String CATEGORY_NAME = "category";
@@ -73,6 +76,13 @@ public class DestinationFragment extends BaseFragment {
     @Override
     public void onStartNavigateClick() {
         super.onStartNavigateClick();
+        Address address = getActivityHandle().getCurrentTarget();
+        String query = String.format(Locale.ENGLISH, "geo:%f,%f?q=parking", address.getLatitude(), address.getLongitude());
+        Uri gmmIntentUri = Uri.parse(query);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+        mapIntent.setPackage("com.google.android.apps.maps");
+
+        startActivity(mapIntent);
     }
 
     @Override
