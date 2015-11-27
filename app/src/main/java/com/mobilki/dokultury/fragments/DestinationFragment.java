@@ -77,7 +77,7 @@ public class DestinationFragment extends BaseFragment {
 
     @Override
     public void onAddDestinationClick() {
-        loadFragment(CategoriesFragment.newInstance(getActivityHandle().getCity()));
         super.onAddDestinationClick();
+        loadFragment(CategoriesFragment.newInstance(getActivityHandle().getCity()));
     }
 }

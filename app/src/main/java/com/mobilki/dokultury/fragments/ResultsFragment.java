@@ -59,7 +59,7 @@ public class ResultsFragment extends BaseFragment {
     @Override
     public void onListItemClick(AdapterView<?> parent, View view, int position, long id) {
         super.onListItemClick(parent, view, position, id);
-        getActivityHandle().addDestination(addressList.get(position), false);
+        getActivityHandle().addDestination(addressList.get(position), true);
         showDestinations();
     }
 
