@@ -4,6 +4,7 @@ package com.mobilki.dokultury.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,9 @@ public abstract class BaseFragment extends Fragment {
     @Bind(R.id.title_bar) TextView mTitle;
     @Bind(R.id.search_bar) EditText mSerachBar;
     @Bind(R.id.listView) ListView mListView;
+    @Bind(R.id.title_holder) FrameLayout mTitleHolder;
+    @Bind(R.id.icon) ImageView mIcon;
+    @Bind(R.id.text) TextView mText;
 
     OnFragmentChangeListener mListener;
 
@@ -64,7 +70,21 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void setTitle(String title){
+        mTitle.setVisibility(View.VISIBLE);
         mTitle.setText(title);
+        mTitleHolder.setVisibility(View.GONE);
+    }
+
+    public void showCategoryOnTitle(int icon, String name){
+        mTitle.setVisibility(View.GONE);
+        mIcon.setImageDrawable(ContextCompat.getDrawable(getContext(), icon));
+        mText.setText(name);
+        mTitleHolder.setVisibility(View.VISIBLE);
+    }
+
+    public void showSearchBar(boolean check){
+        int visible = check ? View.VISIBLE : View.GONE;
+        mSerachBar.setVisibility(visible);
     }
 
     public void onViewCreated(View v, ListView listView){}

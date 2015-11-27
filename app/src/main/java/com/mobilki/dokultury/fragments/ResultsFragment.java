@@ -5,20 +5,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.mobilki.dokultury.R;
 import com.mobilki.dokultury.activities.MainActivity;
 import com.mobilki.dokultury.models.Category;
 import com.mobilki.dokultury.views.adapters.CategoriesAdapter;
 
-public class CategoriesFragment extends BaseFragment {
-    public static String CITY_KEY = "city";
-    String city;
-    public CategoriesFragment () {}
+public class ResultsFragment extends BaseFragment {
+    public static String CATEGORY_NAME = "category";
+    public static String CATEGORY_ICON = "icon";
 
-    public static CategoriesFragment newInstance(String city) {
-        CategoriesFragment fragment = new CategoriesFragment();
+    String mName;
+    int mIcon;
+
+    public ResultsFragment () {}
+
+    public static ResultsFragment newInstance(Category category) {
+        ResultsFragment fragment = new ResultsFragment();
         Bundle args = new Bundle();
-        args.putString(CITY_KEY, city);
+        args.putString(CATEGORY_NAME, category.getName());
+        args.putInt(CATEGORY_ICON, category.getIcon());
         fragment.setArguments(args);
         return fragment;
     }
@@ -27,15 +31,15 @@ public class CategoriesFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            city = getArguments().getString(CITY_KEY);
+            mName = getArguments().getString(CATEGORY_NAME);
+            mIcon = getArguments().getInt(CATEGORY_ICON);
         }
     }
 
     @Override
     public void onViewCreated(View v, ListView listView) {
         super.onViewCreated(v, listView);
-        showSearchBar(false);
-        setTitle(getResources().getString(R.string.fragment_categories_title) + " " + city);
+        showCategoryOnTitle(mIcon, mName);
         CategoriesAdapter adapter = new CategoriesAdapter(this.getContext(), ((MainActivity) getActivity()).categories);
         listView.setAdapter(adapter);
     }
@@ -43,13 +47,17 @@ public class CategoriesFragment extends BaseFragment {
     @Override
     public void onListItemClick(AdapterView<?> parent, View view, int position, long id) {
         super.onListItemClick(parent, view, position, id);
-        Category category = ((MainActivity) this.getContext()).categories.get(position);
-        showPlaces(category);
     }
 
-    private void showPlaces(Category category){
-        // tworzysz nowy fragment i wysyłasz go do activity
-         ResultsFragment results = ResultsFragment.newInstance(category);
-         loadFragment(results);
+    @Override
+    public void onSearch(String query) {
+        super.onSearch(query);
     }
+
+//    private void showCategories(String miasto){
+//        Toast.makeText(this.getContext(), miasto, Toast.LENGTH_LONG).show();
+//        // tworzysz nowy fragment i wysyłasz go do activity
+//        // CategoriesFragment categories = CategoriesFragment.newInstance(miasto);
+//        // loadFragment(categories);
+//    }
 }
