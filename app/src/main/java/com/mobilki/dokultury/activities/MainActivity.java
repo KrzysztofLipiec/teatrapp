@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements BaseFragment.OnFr
     public void loadFragment(BaseFragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        fragmentTransaction.setCustomAnimations(R.anim.pop_in, R.anim.slide_down);
         fragmentTransaction.replace(R.id.fragment, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
