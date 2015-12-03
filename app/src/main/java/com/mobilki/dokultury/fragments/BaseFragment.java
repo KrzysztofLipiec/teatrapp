@@ -37,6 +37,7 @@ public abstract class BaseFragment extends Fragment {
     @Bind(R.id.navigation_buttons) RelativeLayout mNavigationButtons;
     @Bind(R.id.add_destination) Button mAddDestinationButton;
     @Bind(R.id.start_navigate) Button mStartNavigateButton;
+    @Bind(R.id.find_car_park) Button mFindCarParkButton;
 
     OnFragmentChangeListener mListener;
 
@@ -85,6 +86,13 @@ public abstract class BaseFragment extends Fragment {
             }
         });
 
+        mFindCarParkButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                onFindCarParkClick();
+            }
+        });
+
         this.onViewCreated(view, mListView);
         return view;
     }
@@ -120,6 +128,7 @@ public abstract class BaseFragment extends Fragment {
     public void onListItemClick(AdapterView<?> parent, View view, int position, long id){}
     public void onAddDestinationClick(){}
     public void onStartNavigateClick(){}
+    public void onFindCarParkClick(){}
 
     public void loadFragment(BaseFragment fragment){
         mListener.loadFragment(fragment);

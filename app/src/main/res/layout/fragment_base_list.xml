@@ -63,6 +63,8 @@
         android:clickable="false"
         tools:listitem="@layout/item_simple"
         android:visibility="visible" />
+
+
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -71,14 +73,26 @@
         android:id="@+id/navigation_buttons"
         android:visibility="gone"
         android:layout_weight="1">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/add_destination"
-            android:text="Dodaj cel pośredni"
-            style="@style/AppTheme" />
-
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TableRow>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/find_car_park"
+                    android:text="Znajdź parking w pobliżu"
+                    style="@style/AppTheme" />
+            </TableRow>
+            <TableRow>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/add_destination"
+                    android:text="Dodaj cel pośredni"
+                    style="@style/AppTheme" />
+            </TableRow>
+        </TableLayout>
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -3,6 +3,7 @@ package com.mobilki.dokultury.fragments;
 
 import android.content.Intent;
 import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -89,5 +90,15 @@ public class DestinationFragment extends BaseFragment {
     public void onAddDestinationClick() {
         super.onAddDestinationClick();
         loadFragment(CategoriesFragment.newInstance(getActivityHandle().getCity()));
+    }
+
+    @Override
+    public void onFindCarParkClick() {
+        super.onFindCarParkClick();
+        Category category = ((MainActivity) this.getContext()).categories.get(5);
+        String city = ((MainActivity) this.getContext()).getCity();
+        Address address = getActivityHandle().getCurrentTarget();
+        ResultsFragment results = ResultsFragment.newInstanceCarParkFinder(category, city, address.getLatitude(), address.getLongitude());
+        loadFragment(results);
     }
 }
