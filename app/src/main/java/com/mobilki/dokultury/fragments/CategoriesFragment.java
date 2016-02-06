@@ -1,9 +1,13 @@
 package com.mobilki.dokultury.fragments;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mobilki.dokultury.R;
 import com.mobilki.dokultury.activities.MainActivity;
@@ -49,8 +53,22 @@ public class CategoriesFragment extends BaseFragment {
 
     private void showPlaces(Category category){
         // tworzysz nowy fragment i wysyłasz go do activity
-        getActivityHandle().setCategory(category);
-        ResultsFragment results = ResultsFragment.newInstance(category, city);
-        loadFragment(results);
+        if(isOnline()){
+            getActivityHandle().setCategory(category);
+            ResultsFragment results = ResultsFragment.newInstance(category, city);
+            loadFragment(results);
+        }else{
+            Toast.makeText(getActivity(), "Brak dostępu do sieci",
+                    Toast.LENGTH_LONG).show();
+        }
+
     }
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
 }
