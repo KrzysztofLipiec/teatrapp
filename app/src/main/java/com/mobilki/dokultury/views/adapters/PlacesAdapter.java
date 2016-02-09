@@ -55,8 +55,10 @@ public class PlacesAdapter extends BaseAdapter {
 
         Address address = mAddresses.get(position);
         holder.placeName.setText(address.getFeatureName());
-        holder.placeDetails.setText(String.format("%s, %s, %s %s", address.getCountryName(),
-                address.getLocality(), address.getThoroughfare(), address.getSubThoroughfare()));
+        holder.placeDetails.setText(String.format("%s, %s, %s %s", address.getCountryName() != null ? address.getCountryName() : "",
+                address.getLocality() != null ? address.getLocality() : "",
+                address.getThoroughfare() != null ? address.getThoroughfare() : "" ,
+                address.getSubThoroughfare() != null ? address.getSubThoroughfare() : ""));
 
         return convertView;
     }
